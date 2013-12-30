@@ -204,28 +204,7 @@ int SoftapController::fwReloadSoftap(int argc, char *argv[])
     int i = 0;
     char *fwpath = NULL;
 
-    if (argc < 4) {
-        ALOGE("SoftAP fwreload is missing arguments. Please use: softap <wlan iface> <AP|P2P|STA>");
-        return ResponseCode::CommandSyntaxError;
-    }
-
-    if (strcmp(argv[3], "AP") == 0) {
-        fwpath = (char *)wifi_get_fw_path(WIFI_GET_FW_PATH_AP);
-    } else if (strcmp(argv[3], "P2P") == 0) {
-        fwpath = (char *)wifi_get_fw_path(WIFI_GET_FW_PATH_P2P);
-    } else if (strcmp(argv[3], "STA") == 0) {
-        fwpath = (char *)wifi_get_fw_path(WIFI_GET_FW_PATH_STA);
-    }
-    if (!fwpath)
-        return ResponseCode::CommandParameterError;
-    if (wifi_change_fw_path((const char *)fwpath)) {
-        ALOGE("Softap fwReload failed");
-        return ResponseCode::OperationFailed;
-    }
-    else {
-        ALOGD("Softap fwReload - Ok");
-    }
-    return ResponseCode::SoftapStatusResult;
+    return ResponseCode::CommandOkay;
 }
 
 void SoftapController::generatePsk(char *ssid, char *passphrase, char *psk_str) {
